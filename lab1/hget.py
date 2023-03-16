@@ -88,15 +88,18 @@ def connect_to_server(server_name):
     """
 
     # Buscar direccion ip
-    # COMPLETAR ABAJO DE ESTA LINEA
     # Aqui deberian obtener la direccion ip del servidor y asignarla
     # a ip_address
+    ip_address = socket.gethostbyname(server_name)
     # DEJAR LA LINEA SIGUIENTE TAL COMO ESTA
     sys.stderr.write("Contactando al servidor en %s...\n" % ip_address)
     # Crear socket
-    # COMPLETAR ABAJO DE ESTA LINEA
+    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     # Aqui deben conectarse al puerto correcto del servidor
+    s.connect((ip_address,80))  
     # NO MODIFICAR POR FUERA DE ESTA FUNCION
+    return s
+    
 
 
 def send_request(connection, url):
@@ -164,6 +167,7 @@ def check_http_response(header):
     """
     header = header.decode()
     elements = header.split(' ', 3)
+    print(elements)
     return (len(elements) >= 2 and elements[0].startswith("HTTP/")
             and elements[1] == HTTP_OK)
 
