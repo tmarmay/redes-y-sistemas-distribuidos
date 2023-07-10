@@ -14,12 +14,17 @@
 
 ## 0. Introducción
 
-La actividad propuesta por la cátedra fue implementar un protocolo de transferencia de archivos casero **HFTP**, el cual usa como protocolo de transporte **TCP**, este protocolo el cual fue estudiado en la parte teórica de la materia sirve para transportar archivos de un emisor a un receptor, este protocolo en particular se caracteriza por la garantía de que el archivo llegue de manera segura sin errores al receptor, a diferencia del otro protocolo (UDP) que no lo garantiza. HFTP escucha comandos de un cliente y los responde en orden de llegada del pedido (como una queue), en caso de haber errores este protocolo, según la gravedad del error, cierra la conexión o advierte al cliente del error, a estos errores los caracterizamos por un código numérico, 100 a 199 errores fatales (cierran la conexión) y de 200 a 299 errores no fatales (permiten continuar con la conexión y seguir respondiendo pedidos). Además hay un código el cuál nos avisa que la operación se realizó con éxito, éste lo denotamos con 0.  
-Éste protocolo tiene a disposición 4 comandos funcionales;  
-`get_file_listing`, el cual lista todos los archivos disponibles.  
-`get_metadata`, recibe un argumento, el cual es el nombre del archivo, y responde con el tamaño de éste.  
-`get_slice`, toma 3 argumentos, el nombre del archivo, el byte de inicio (OFFSET) y el tamaño de la parte esperada (SIZE), éste comando responde con el segmento del archivo que se pidió.  
-`quit`, el comando más simple, no toma argumentos y simplemente cierra la conexión.  
+La idea de este laboratorio es levantar un servidor y crear un protocolo llamado **Home-made File Transfer Protocol (HFTP)** para que un cliente pueda conectarse a nuestro servidor y difentes funciones a archivos especificos.
+Dicho protocolo va a funcionar en el puerto **19500** y usa a **TCP** como capa de transporte. 
+Va a contar con funciones como:
+    - `get_file_listing` : Este comando no recibe argumentos y busca obtener la lista de archivos que están actualmente disponibles en el servidor.
+    - `get_metadata` : Este comando recibe un argumento FILENAME especificando un nombre de archivo del cual se pretende averiguar el tamaño.
+    - `get_slice` : Este comando recibe en el argumento FILENAME el nombre de archivo del que se pretende obtener un slice o parte. La parte se especifica con un OFFSET (byte de inicio) y un SIZE (tamaño de la parte esperada, en bytes), ambos no negativos. Responde con el fragmento de archivo pedido codificado en base64.
+    - `quit`: Este comando no recibe argumentos y busca terminar la conexión.
+Ademas el servidor es capaz de soportar multiples clientes en simultaneo, con el manejo de `threads`.
+
+> Se puede probar o bien usando el cliente creado en el lab1 o usando telnet.
+> Para mas informacion ver [consignas](lab2-enunciado.pdf) donde se especifican las consginas y datos mas puntuales.
 
 ## 1. Implementación, Explicación de nuestro proyecto
 
