@@ -2,9 +2,7 @@
 
 - La idea del laboratorio es empezar a entender como funciona sockets para que sea mas facil de realizar el lab2
 
-- Puede consultar las consignas en `lab1_enunciado.pdf los archivos para obtener mas informacion detallada. 
-
-- Para mas informacion consultar [consignas](lab1-enunciado.pdf)
+- Puede consultar las consignas en [consignas](lab1-enunciado.pdf) los archivos para obtener mas informacion detallada. 
 
 **Como correr:**
 - python3 hget.py `url`
